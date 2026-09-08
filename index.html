@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FundMyGame | Crowdfund the Next Big Hit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="#" class="nav-link">Discover</a>
+                <a href="#" class="nav-link">Start a Project</a>
+            </div>
+            <a href="#" class="logo">
+                <span class="logo-accent">FUND</span>MYGAME
+            </a>
+            <div class="nav-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Search games...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <a href="#" class="nav-link login-btn">Log in</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-media">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Featured Game Art" class="featured-img">
+                        <div class="hero-badge">FEATURED PROJECT</div>
+                    </div>
+                    <div class="hero-info">
+                        <span class="category-tag">Action RPG</span>
+                        <h1>CyberBlade: Neon City</h1>
+                        <p class="project-desc">A breathtaking cyberpunk action RPG with deep narrative choices and fast-paced combat. Help us bring the neon streets to life.</p>
+                        
+                        <div class="author-info">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Studio Logo" class="author-avatar">
+                            <span>By <strong>Neon Studios</strong></span>
+                        </div>
+
+                        <div class="funding-stats">
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="width: 85%"></div>
+                            </div>
+                            
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <h3 class="stat-value text-accent">$125,430</h3>
+                                    <p class="stat-label">pledged of $150,000 goal</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h3 class="stat-value">3,420</h3>
+                                    <p class="stat-label">backers</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h3 class="stat-value">14</h3>
+                                    <p class="stat-label">days to go</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero-actions">
+                            <button class="btn btn-primary" onclick="backProject('CyberBlade')">Back this project</button>
+                            <button class="btn btn-secondary">♡ Remind me</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommended Projects -->
+        <section class="projects-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Trending Games</h2>
+                    <a href="#" class="view-all">View all projects ➔</a>
+                </div>
+                
+                <div class="projects-grid" id="projectsGrid">
+                    <!-- Projects will be injected via JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h2><span class="logo-accent">FUND</span>MYGAME</h2>
+                    <p>Empowering indie developers and gamers to create the future of gaming together.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Our charter</a></li>
+                        <li><a href="#">Stats</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Our Rules</a></li>
+                        <li><a href="#">Creator Resources</a></li>
+                        <li><a href="#">Trust & Safety</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FundMyGame, Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">Project backed successfully!</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
