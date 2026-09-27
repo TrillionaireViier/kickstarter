@@ -1,0 +1,67 @@
+name: Threads Parser
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Scrape Mode (profile, hashtag, thread)'
+        required: true
+        default: 'profile'
+        type: choice
+        options:
+          - profile
+          - hashtag
+          - thread
+      target:
+        description: 'Target (Username, Hashtag, or URL)'
+        required: true
+        default: 'zuck'
+      max:
+        description: 'Limit (max posts)'
+        required: true
+        default: '20'
+  schedule:
+    # Пример: запуск каждый день в полночь. Раскомментируй, если нужно парсить по расписанию.
+    # - cron: '0 0 * * *'
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        working-directory: threads-parser
+        run: npm install
+
+      - name: Install Playwright Browsers
+        working-directory: threads-parser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Scraper
+        working-directory: threads-parser
+        run: node src/index.js --mode="${{ github.event.inputs.mode || 'profile' }}" --target="${{ github.event.inputs.target || 'zuck' }}" --max="${{ github.event.inputs.max || 20 }}"
+        
+      - name: Upload Scraped Data
+        uses: actions/upload-artifact@v3
+        with:
+          name: scraped-data
+          path: threads-parser/storage/datasets/default/
+          retention-days: 7
+
+      # Опционально: коммит результатов прямо в репозиторий
+      # - name: Commit results
+      #   run: |
+      #     git config --local user.email "action@github.com"
+      #     git config --local user.name "GitHub Action"
+      #     git add threads-parser/storage/
+      #     git commit -m "chore: add scraped data for ${{ github.event.inputs.target }}" || echo "No changes to commit"
+      #     git push
