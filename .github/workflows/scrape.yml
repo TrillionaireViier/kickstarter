@@ -1,0 +1,55 @@
+name: Threads Parser
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Scrape Mode (profile, hashtag, thread)'
+        required: true
+        default: 'profile'
+        type: choice
+        options:
+          - profile
+          - hashtag
+          - thread
+      target:
+        description: 'Target (Username, Hashtag, or URL)'
+        required: true
+        default: 'zuck'
+      max:
+        description: 'Limit (max posts)'
+        required: true
+        default: '20'
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        working-directory: products/threads-parser
+        run: npm install
+
+      - name: Install Playwright Browsers
+        working-directory: products/threads-parser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Scraper
+        working-directory: products/threads-parser
+        run: node src/index.js --mode="${{ github.event.inputs.mode || 'profile' }}" --target="${{ github.event.inputs.target || 'zuck' }}" --max="${{ github.event.inputs.max || 20 }}"
+        
+      - name: Upload Scraped Data
+        uses: actions/upload-artifact@v3
+        with:
+          name: scraped-data
+          path: products/threads-parser/storage/datasets/default/
+          retention-days: 7
